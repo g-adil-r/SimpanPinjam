@@ -22,6 +22,7 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
     protected void onBindViewHolder(@NonNull AnggotaViewHolder holder, int position, @NonNull Anggota model) {
         holder.tvNama.setText(model.getNama());
         holder.tvBidak.setText(model.getAlamatBidak());
+        holder.anggotaId = model.getAnggotaId();
     }
 
     @NonNull
@@ -33,8 +34,8 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
     }
 
     class AnggotaViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNama;
-        TextView tvBidak;
+        TextView tvNama, tvBidak;
+        String anggotaId;
 
         public AnggotaViewHolder(@NonNull View itemView) {
             super(itemView);

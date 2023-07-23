@@ -1,22 +1,23 @@
 package com.example.myapplication.Model;
 
 public class Anggota {
-    String id;
+    String anggotaId;
     String nama;
     String alamatBidak;
+    public Anggota() {}
 
-    public Anggota(String id, String nama, String alamatBidak) {
-        this.id = id;
+    public Anggota(String anggotaId, String nama, String alamatBidak) {
+        this.anggotaId = anggotaId;
         this.nama = nama;
         this.alamatBidak = alamatBidak;
     }
 
-    public String getId() {
-        return id;
+    public String getAnggotaId() {
+        return anggotaId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAnggotaId(String anggotaId) {
+        this.anggotaId = anggotaId;
     }
 
     public String getNama() {
