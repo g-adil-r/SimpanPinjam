@@ -2,15 +2,13 @@ package com.example.myapplication.Model;
 
 public class Transaksi {
     String transaksiId;
-    String anggotaId;
-    String tanggal;
+    long tanggal;
     int setoran;
 
     public Transaksi() {}
 
-    public Transaksi(String transaksiId, String anggotaId, String tanggal, int setoran) {
+    public Transaksi(String transaksiId, long tanggal, int setoran) {
         this.transaksiId = transaksiId;
-        this.anggotaId = anggotaId;
         this.tanggal = tanggal;
         this.setoran = setoran;
     }
@@ -23,19 +21,11 @@ public class Transaksi {
         this.transaksiId = transaksiId;
     }
 
-    public String getAnggotaId() {
-        return anggotaId;
-    }
-
-    public void setAnggotaId(String anggotaId) {
-        this.anggotaId = anggotaId;
-    }
-
-    public String getTanggal() {
+    public long getTanggal() {
         return tanggal;
     }
 
-    public void setTanggal(String tanggal) {
+    public void setTanggal(long tanggal) {
         this.tanggal = tanggal;
     }
 

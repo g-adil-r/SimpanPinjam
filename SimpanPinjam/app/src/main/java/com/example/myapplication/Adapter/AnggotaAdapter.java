@@ -1,13 +1,17 @@
 package com.example.myapplication.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Activity.AnggotaActivity;
 import com.example.myapplication.Model.Anggota;
 import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -34,13 +38,24 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
     }
 
     class AnggotaViewHolder extends RecyclerView.ViewHolder {
+        Context context;
+        CardView itemCard;
         TextView tvNama, tvBidak;
         String anggotaId;
 
         public AnggotaViewHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
+
+            itemCard = itemView.findViewById(R.id.cardview);
             tvNama = itemView.findViewById(R.id.tv_nama);
             tvBidak = itemView.findViewById(R.id.tv_alamat_bidak);
+
+            itemCard.setOnClickListener(v -> {
+                Intent i = new Intent(context, AnggotaActivity.class);
+                i.putExtra("anggotaId", anggotaId);
+                context.startActivity(i);
+            });
         }
     }
 }

@@ -27,7 +27,6 @@ import java.util.List;
 
 public class AnggotaViewModel {
     private Context context;
-    private FirebaseRecyclerOptions<Anggota> anggotaOptions;
     private DatabaseReference anggotaRef;
     private FirebaseRecyclerOptions<Anggota> options;
 
@@ -63,5 +62,45 @@ public class AnggotaViewModel {
                 .addOnFailureListener(e -> {
                     Toast.makeText(this.context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    public void editAnggota(String anggotaId, String nama, String alamatBidak) {
+        if (nama.isEmpty() || alamatBidak.isEmpty()) {
+            Toast.makeText(this.context, "Harap isi data", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Anggota newAnggota = new Anggota(anggotaId, nama, alamatBidak);
+
+        anggotaRef.child(anggotaId).setValue(newAnggota)
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(this.context, "Berhasil mengedit anggota baru", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this.context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    public LiveData<Anggota> getAnggotaFromId(String anggotaId) {
+        MutableLiveData<Anggota> anggotaLiveData = new MutableLiveData<>();
+
+        anggotaRef.child(anggotaId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                anggotaLiveData.setValue(snapshot.getValue(Anggota.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+//        anggotaRef.child(anggotaId).get().addOnSuccessListener(dataSnapshot -> {
+//            Anggota anggota = dataSnapshot.getValue(Anggota.class);
+//            anggotaLiveData.setValue(anggota);
+//        }).addOnFailureListener(e -> {
+//            Toast.makeText(this.context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//        });
+        return anggotaLiveData;
     }
 }

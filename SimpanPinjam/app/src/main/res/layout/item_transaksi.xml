@@ -6,7 +6,6 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -21,16 +20,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_nama"
+                android:id="@+id/tv_setoran"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nama" />
+                android:text="TextView"
+                android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/tv_alamat_bidak"
-                android:layout_width="392dp"
+                android:id="@+id/tv_tanggal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Alamat" />
+                android:text="TextView" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
