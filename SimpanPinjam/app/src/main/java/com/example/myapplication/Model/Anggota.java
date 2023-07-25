@@ -1,9 +1,12 @@
 package com.example.myapplication.Model;
 
+import java.util.List;
+
 public class Anggota {
     String anggotaId;
     String nama;
     String alamatBidak;
+    List<Transaksi> transaksiList;
     public Anggota() {}
 
     public Anggota(String anggotaId, String nama, String alamatBidak) {
@@ -34,5 +37,13 @@ public class Anggota {
 
     public void setAlamatBidak(String alamatBidak) {
         this.alamatBidak = alamatBidak;
+    }
+
+    public List<Transaksi> getTransaksiList() {
+        return transaksiList;
+    }
+
+    public void setTransaksiList(List<Transaksi> transaksiList) {
+        this.transaksiList = transaksiList;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.myapplication.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,9 +10,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.Adapter.TransaksiAdapter;
+import com.example.myapplication.Helper.CurrencyHelper;
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModel.AnggotaViewModel;
 import com.example.myapplication.ViewModel.TransaksiViewModel;
+
+import java.text.NumberFormat;
 
 public class AnggotaActivity extends AppCompatActivity {
     TextView tvNama, tvBidak, tvTotal;
@@ -37,7 +39,7 @@ public class AnggotaActivity extends AppCompatActivity {
         btEditAnggota = findViewById(R.id.bt_edit_anggota);
 
         transaksiViewModel = new TransaksiViewModel(getApplicationContext(), anggotaId);
-        transaksiAdapter = new TransaksiAdapter(transaksiViewModel.getTransaksiOptions(anggotaId));
+        transaksiAdapter = new TransaksiAdapter(transaksiViewModel.getTransaksiAdapterOptions(anggotaId), transaksiViewModel);
 
         anggotaViewModel = new AnggotaViewModel(getApplicationContext());
         transaksiViewModel = new TransaksiViewModel(getApplicationContext(), anggotaId);
@@ -47,9 +49,9 @@ public class AnggotaActivity extends AppCompatActivity {
                     tvNama.setText(anggota.getNama());
                     tvBidak.setText(anggota.getAlamatBidak());
                 });
-        transaksiViewModel.getTotalSetoran(anggotaId)
+        transaksiViewModel.getTotalSetoran()
                 .observe(this, integer -> {
-                    tvTotal.setText("Total rekening: Rp"+integer);
+                    tvTotal.setText(CurrencyHelper.stringFormatIDR(integer));
                 });
 
         rvTransaksi.setLayoutManager(new LinearLayoutManager(this));

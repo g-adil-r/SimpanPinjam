@@ -9,24 +9,44 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Activity.AnggotaActivity;
+import com.example.myapplication.Helper.CurrencyHelper;
 import com.example.myapplication.Model.Anggota;
 import com.example.myapplication.R;
+import com.example.myapplication.ViewModel.AnggotaViewModel;
+import com.example.myapplication.ViewModel.TransaksiViewModel;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdapter.AnggotaViewHolder> {
-    public AnggotaAdapter(@NonNull FirebaseRecyclerOptions<Anggota> options) {
+    Context context;
+    TransaksiViewModel transaksiViewModel;
+    public AnggotaAdapter(@NonNull FirebaseRecyclerOptions<Anggota> options, TransaksiViewModel transaksiViewModel) {
         super(options);
+        this.transaksiViewModel = transaksiViewModel;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.context = recyclerView.getContext();
     }
 
     @Override
     protected void onBindViewHolder(@NonNull AnggotaViewHolder holder, int position, @NonNull Anggota model) {
         holder.tvNama.setText(model.getNama());
-        holder.tvBidak.setText(model.getAlamatBidak());
+
+        String strAlamat = "Alamat bidak: "+model.getAlamatBidak();
+        holder.tvBidak.setText(strAlamat);
         holder.anggotaId = model.getAnggotaId();
+
+        transaksiViewModel.getTotalSetoran(model.getAnggotaId())
+                .observe((LifecycleOwner) context,integer -> {
+                    holder.tvSetoran.setText(CurrencyHelper.stringFormatIDR(integer));
+                });
     }
 
     @NonNull
@@ -40,7 +60,7 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
     class AnggotaViewHolder extends RecyclerView.ViewHolder {
         Context context;
         CardView itemCard;
-        TextView tvNama, tvBidak;
+        TextView tvNama, tvBidak, tvSetoran;
         String anggotaId;
 
         public AnggotaViewHolder(@NonNull View itemView) {
@@ -50,6 +70,7 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
             itemCard = itemView.findViewById(R.id.cardview);
             tvNama = itemView.findViewById(R.id.tv_nama);
             tvBidak = itemView.findViewById(R.id.tv_alamat_bidak);
+            tvSetoran = itemView.findViewById(R.id.tv_setoran);
 
             itemCard.setOnClickListener(v -> {
                 Intent i = new Intent(context, AnggotaActivity.class);

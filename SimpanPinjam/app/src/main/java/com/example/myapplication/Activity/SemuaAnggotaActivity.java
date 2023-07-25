@@ -10,23 +10,27 @@ import android.os.Bundle;
 import com.example.myapplication.Adapter.AnggotaAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModel.AnggotaViewModel;
+import com.example.myapplication.ViewModel.TransaksiViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class SemuaAnggotaActivity extends AppCompatActivity {
     RecyclerView rvAnggota;
     FloatingActionButton btTambah;
     AnggotaAdapter anggotaAdapter;
-    AnggotaViewModel viewModel;
+    AnggotaViewModel anggotaViewModel;
+    TransaksiViewModel transaksiViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_anggota);
+        setContentView(R.layout.activity_semua_anggota);
         rvAnggota = findViewById(R.id.rv_anggota);
         btTambah = findViewById(R.id.bt_tambah);
 
-        viewModel = new AnggotaViewModel(getApplicationContext());
-        anggotaAdapter = new AnggotaAdapter(viewModel.getAnggotaOptions());
+        anggotaViewModel = new AnggotaViewModel(getApplicationContext());
+        transaksiViewModel = new TransaksiViewModel(getApplicationContext());
+
+        anggotaAdapter = new AnggotaAdapter(anggotaViewModel.getAnggotaAdapterOptions(), transaksiViewModel);
         rvAnggota.setLayoutManager(new LinearLayoutManager(this));
         rvAnggota.setAdapter(anggotaAdapter);
         rvAnggota.setItemAnimator(null);

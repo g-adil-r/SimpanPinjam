@@ -1,17 +1,13 @@
 package com.example.myapplication.ViewModel;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.Model.Anggota;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,9 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AnggotaViewModel {
     private Context context;
@@ -36,7 +29,7 @@ public class AnggotaViewModel {
     }
 
     // untuk recyclerview
-    public FirebaseRecyclerOptions<Anggota> getAnggotaOptions() {
+    public FirebaseRecyclerOptions<Anggota> getAnggotaAdapterOptions() {
         if (options == null) {
             Query dataQuery = anggotaRef.orderByChild("nama");
             options = new FirebaseRecyclerOptions.Builder<Anggota>()
@@ -81,6 +74,14 @@ public class AnggotaViewModel {
                 });
     }
 
+    public void deleteAnggota(String anggotaId) {
+        anggotaRef.child(anggotaId).removeValue().addOnSuccessListener(unused -> {
+            Toast.makeText(context, "Berhasil menghapus anggota", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
     public LiveData<Anggota> getAnggotaFromId(String anggotaId) {
         MutableLiveData<Anggota> anggotaLiveData = new MutableLiveData<>();
 
@@ -95,12 +96,6 @@ public class AnggotaViewModel {
                 Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-//        anggotaRef.child(anggotaId).get().addOnSuccessListener(dataSnapshot -> {
-//            Anggota anggota = dataSnapshot.getValue(Anggota.class);
-//            anggotaLiveData.setValue(anggota);
-//        }).addOnFailureListener(e -> {
-//            Toast.makeText(this.context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//        });
         return anggotaLiveData;
     }
 }
