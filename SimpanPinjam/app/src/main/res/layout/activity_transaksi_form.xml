@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.TambahAnggotaActivity">
+    tools:context=".Activity.TambahTransaksiActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,11 +13,11 @@
 
         <TextView
             android:id="@+id/tv_form"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Form"
+            android:layout_marginTop="24sp"
+            android:text="TextView"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -25,8 +25,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:elevation="10dp">
+            android:layout_margin="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,52 +33,32 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/nama"
+                    android:text="@string/jumlah_setoran"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/et_nama"
+                    android:id="@+id/et_setoran"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:ems="10"
-                    android:hint="@string/nama"
-                    android:inputType="textPersonName" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/bidak"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/et_alamat_bidak"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:ems="10"
-                    android:hint="Alamat Bidak"
-                    android:inputType="textPersonName" />
+                    android:hint="Setoran"
+                    android:inputType="number" />
 
                 <Button
                     android:id="@+id/bt_tambah"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_margin="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:text="Button" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

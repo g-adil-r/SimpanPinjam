@@ -1,10 +1,21 @@
 <resources>
     <string name="app_name">USP Arto Rahayu</string>
     <string name="semua_anggota">Anggota</string>
+    <string name="tambah_anggota">Tambah Anggota:</string>
+    <string name="edit_anggota">Edit Anggota:</string>
+    <string name="tambah_transaksi">Tambah Transaksi:</string>
+    <string name="edit_transaksi">Edit Transaksi:</string>
+    <string name="jumlah_setoran">Jumlah Setoran</string>
+    <string name="tambah">Tambah</string>
     <string name="edit">Edit</string>
     <string name="hapus">Hapus</string>
+    <string name="nama">Nama</string>
+    <string name="batal">Batal</string>
+    <string name="bidak">Alamat Bidak</string>
     <string name="detail_anggota">Detail Anggota:</string>
     <string name="alamat_bidak">Alamat Bidak:</string>
     <string name="total_setoran">Total Setoran:</string>
-    <string name="riwayat_setoran">Riwayat Setoran:</string>
+    <string name="riwayat_transaksi">Riwayat Transaksi:</string>
+    <string name="pesan_hapus_anggota">Hapus &lt;b>%1$s&lt;/b> dari daftar anggota?</string>
+    <string name="pesan_hapus_transaksi">Hapus transaksi?</string>
 </resources>

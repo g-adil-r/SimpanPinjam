@@ -21,11 +21,13 @@ import com.google.firebase.database.ValueEventListener;
 public class AnggotaViewModel {
     private Context context;
     private DatabaseReference anggotaRef;
+    private DatabaseReference transaksiRef;
     private FirebaseRecyclerOptions<Anggota> options;
 
     public AnggotaViewModel(Context context) {
         this.context = context;
         anggotaRef = FirebaseDatabase.getInstance().getReference().child("anggota");
+        transaksiRef = FirebaseDatabase.getInstance().getReference().child("transaksi");
     }
 
     // untuk recyclerview
@@ -76,7 +78,11 @@ public class AnggotaViewModel {
 
     public void deleteAnggota(String anggotaId) {
         anggotaRef.child(anggotaId).removeValue().addOnSuccessListener(unused -> {
-            Toast.makeText(context, "Berhasil menghapus anggota", Toast.LENGTH_SHORT).show();
+            transaksiRef.child(anggotaId).removeValue().addOnSuccessListener(unused1 -> {
+                Toast.makeText(context, "Berhasil menghapus anggota", Toast.LENGTH_SHORT).show();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            });
         }).addOnFailureListener(e -> {
             Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         });
@@ -98,4 +104,6 @@ public class AnggotaViewModel {
         });
         return anggotaLiveData;
     }
+
+
 }

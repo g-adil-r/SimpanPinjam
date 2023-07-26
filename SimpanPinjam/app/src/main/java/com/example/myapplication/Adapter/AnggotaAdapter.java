@@ -1,10 +1,15 @@
 package com.example.myapplication.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +29,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdapter.AnggotaViewHolder> {
     Context context;
     TransaksiViewModel transaksiViewModel;
+    AnggotaViewModel anggotaViewModel;
     public AnggotaAdapter(@NonNull FirebaseRecyclerOptions<Anggota> options, TransaksiViewModel transaksiViewModel) {
         super(options);
         this.transaksiViewModel = transaksiViewModel;
@@ -33,6 +39,7 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         this.context = recyclerView.getContext();
+        this.anggotaViewModel = new AnggotaViewModel(this.context);
     }
 
     @Override
@@ -61,6 +68,7 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
         Context context;
         CardView itemCard;
         TextView tvNama, tvBidak, tvSetoran;
+        Button btHapus;
         String anggotaId;
 
         public AnggotaViewHolder(@NonNull View itemView) {
@@ -71,12 +79,37 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
             tvNama = itemView.findViewById(R.id.tv_nama);
             tvBidak = itemView.findViewById(R.id.tv_alamat_bidak);
             tvSetoran = itemView.findViewById(R.id.tv_setoran);
+            btHapus = itemView.findViewById(R.id.bt_hapus);
 
             itemCard.setOnClickListener(v -> {
                 Intent i = new Intent(context, AnggotaActivity.class);
                 i.putExtra("anggotaId", anggotaId);
                 context.startActivity(i);
             });
+
+            btHapus.setOnClickListener(v -> {
+                showHapusDialog(anggotaId, tvNama.getText().toString());
+            });
         }
+    }
+
+    public void showHapusDialog(String anggotaId, String nama) {
+        String pesan = context.getString(R.string.pesan_hapus_anggota, nama);
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        dialogBuilder.setMessage(Html.fromHtml(pesan, Html.FROM_HTML_MODE_LEGACY))
+                .setPositiveButton("Batal", (dialogInterface, i) -> {
+                    dialogInterface.cancel();
+                }).setNegativeButton("Hapus", (dialogInterface, i) -> {
+                    anggotaViewModel.deleteAnggota(anggotaId);
+                    dialogInterface.dismiss();
+                }).setCancelable(true);
+
+        AlertDialog dialog = dialogBuilder.create();
+
+        dialog.setOnShowListener(dialogInterface -> {
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.RED);
+        });
+        dialog.show();
     }
 }

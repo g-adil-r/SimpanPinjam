@@ -39,7 +39,7 @@ public class AnggotaActivity extends AppCompatActivity {
         btEditAnggota = findViewById(R.id.bt_edit_anggota);
 
         transaksiViewModel = new TransaksiViewModel(getApplicationContext(), anggotaId);
-        transaksiAdapter = new TransaksiAdapter(transaksiViewModel.getTransaksiAdapterOptions(anggotaId), transaksiViewModel);
+        transaksiAdapter = new TransaksiAdapter(transaksiViewModel.getTransaksiAdapterOptions(anggotaId), transaksiViewModel, anggotaId);
 
         anggotaViewModel = new AnggotaViewModel(getApplicationContext());
         transaksiViewModel = new TransaksiViewModel(getApplicationContext(), anggotaId);

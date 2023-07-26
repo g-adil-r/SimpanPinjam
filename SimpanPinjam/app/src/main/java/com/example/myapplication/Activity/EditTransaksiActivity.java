@@ -11,12 +11,12 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModel.TransaksiViewModel;
 
-public class TambahTransaksiActivity extends AppCompatActivity {
+public class EditTransaksiActivity extends AppCompatActivity {
     TransaksiViewModel viewModel;
-    String anggotaId;
+    String anggotaId, transaksiId;
     TextView tvForm;
     EditText etSetoran;
-    Button btTambah;
+    Button btEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,18 +24,24 @@ public class TambahTransaksiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transaksi_form);
         Intent i = getIntent();
         anggotaId = i.getStringExtra("anggotaId");
+        transaksiId = i.getStringExtra("transaksiId");
         viewModel = new TransaksiViewModel(this,anggotaId);
 
-        tvForm = findViewById(R.id.tv_form);
         etSetoran = findViewById(R.id.et_setoran);
-        btTambah = findViewById(R.id.bt_tambah);
+        btEdit = findViewById(R.id.bt_tambah);
+        tvForm = findViewById(R.id.tv_form);
 
-        tvForm.setText(R.string.tambah_transaksi);
-        btTambah.setText(R.string.tambah);
+        tvForm.setText(R.string.edit_transaksi);
+        btEdit.setText(R.string.edit);
 
-        btTambah.setOnClickListener(v -> {
+        viewModel.getTransaksiFromId(transaksiId)
+                .observe(this,transaksi -> {
+                    etSetoran.setText(String.valueOf(transaksi.getSetoran()));
+                });
+
+        btEdit.setOnClickListener(v -> {
             String setoran = etSetoran.getText().toString();
-            viewModel.addTransaksi(anggotaId,Integer.parseInt(setoran));
+            viewModel.editTransaksi(transaksiId,Integer.parseInt(setoran));
             if (!setoran.isEmpty()) {
                 finish();
             }

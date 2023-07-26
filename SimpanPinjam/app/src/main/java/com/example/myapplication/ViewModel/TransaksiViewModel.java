@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.Model.Transaksi;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +48,7 @@ public class TransaksiViewModel {
     public void addTransaksi(String anggotaId, int setoran) {
         if (setoran == 0) {
             Toast.makeText(this.context, "Harap isi data", Toast.LENGTH_SHORT).show();
+            return;
         }
         long currentDate = (new Date()).getTime();
         String transaksiId = transaksiRef.push().getKey();
@@ -60,12 +62,44 @@ public class TransaksiViewModel {
                 });
     }
 
+    public void editTransaksi(String transaksiId, int setoran) {
+        if (setoran == 0) {
+            Toast.makeText(this.context, "Harap isi data", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        transaksiRef.child(transaksiId).get().addOnSuccessListener(dataSnapshot -> {
+            Transaksi oldData = dataSnapshot.getValue(Transaksi.class);
+
+            long currentDate = oldData.getTanggal();
+            Transaksi newData = new Transaksi(transaksiId,currentDate,setoran);
+
+            transaksiRef.child(transaksiId).setValue(newData).addOnSuccessListener(unused -> {
+                Toast.makeText(context, "Berhasil mengedit transaksi", Toast.LENGTH_SHORT).show();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            });
+        }).addOnFailureListener(e -> {
+            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
     public void deleteTransaksi(String transaksiId) {
         transaksiRef.child(transaksiId).removeValue().addOnSuccessListener(unused -> {
             Toast.makeText(context, "Berhasil menghapus transaksi", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(e -> {
             Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         });
+    }
+
+    public LiveData<Transaksi> getTransaksiFromId(String transaksiId) {
+        MutableLiveData<Transaksi> transaksiLiveData = new MutableLiveData<>();
+        transaksiRef.child(transaksiId).get().addOnSuccessListener(dataSnapshot -> {
+            transaksiLiveData.setValue(dataSnapshot.getValue(Transaksi.class));
+        }).addOnFailureListener(e -> {
+            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        });
+        return transaksiLiveData;
     }
 
     public LiveData<Integer> getTotalSetoran() {

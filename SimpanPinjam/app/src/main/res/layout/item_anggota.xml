@@ -52,7 +52,7 @@
                 android:text="Setoran" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/bt_hapus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_horizontal"
