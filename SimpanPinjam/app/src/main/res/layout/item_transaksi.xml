@@ -32,7 +32,8 @@
             android:layout_weight="1"
             android:text="TextView"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="wrap_content"

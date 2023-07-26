@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.ImageButton;
 
 import com.example.myapplication.Adapter.AnggotaAdapter;
@@ -39,6 +41,14 @@ public class SemuaAnggotaActivity extends AppCompatActivity {
         btTambah.setOnClickListener(view -> {
           startActivity(new Intent(this, TambahAnggotaActivity.class));
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.all_anggota_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

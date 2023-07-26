@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">USP Arto Rahayu</string>
+    <string name="selamat_datang">Selamat Datang!</string>
+    <string name="lihat_anggota">Lihat Anggota</string>
+    <string name="cari">Cari</string>
     <string name="semua_anggota">Anggota</string>
     <string name="tambah_anggota">Tambah Anggota:</string>
     <string name="edit_anggota">Edit Anggota:</string>
@@ -18,5 +21,4 @@
     <string name="riwayat_transaksi">Riwayat Transaksi:</string>
     <string name="pesan_hapus_anggota">Hapus &lt;b>%1$s&lt;/b> dari daftar anggota?</string>
     <string name="pesan_hapus_transaksi">Hapus transaksi?</string>
-    <string name="selamat_datang">Selamat Datang!</string>
 </resources>
