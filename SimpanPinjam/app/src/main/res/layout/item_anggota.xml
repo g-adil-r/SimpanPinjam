@@ -13,6 +13,7 @@
         android:clickable="true"
         android:elevation="10dp"
         android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="#ebebeb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,15 +42,17 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
                 android:text="Alamat"
+                android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_setoran"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
-                android:text="Setoran" />
+                android:text="Setoran"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/bt_hapus"
@@ -58,6 +61,7 @@
                 android:layout_gravity="right|center_horizontal"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="7dp"
+                android:backgroundTint="#E1507B"
                 android:text="@string/hapus" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

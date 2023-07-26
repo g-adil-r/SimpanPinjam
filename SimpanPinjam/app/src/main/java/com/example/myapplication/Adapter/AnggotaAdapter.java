@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.Html;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdapter.AnggotaViewHolder> {
     Context context;
+    RecyclerView recyclerView;
     TransaksiViewModel transaksiViewModel;
     AnggotaViewModel anggotaViewModel;
     public AnggotaAdapter(@NonNull FirebaseRecyclerOptions<Anggota> options, TransaksiViewModel transaksiViewModel) {
@@ -38,6 +40,7 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
         this.context = recyclerView.getContext();
         this.anggotaViewModel = new AnggotaViewModel(this.context);
     }
@@ -101,6 +104,7 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
                 .setPositiveButton("Batal", (dialogInterface, i) -> {
                     dialogInterface.cancel();
                 }).setNegativeButton("Hapus", (dialogInterface, i) -> {
+                    TransitionManager.beginDelayedTransition(recyclerView);
                     anggotaViewModel.deleteAnggota(anggotaId);
                     dialogInterface.dismiss();
                 }).setCancelable(true);

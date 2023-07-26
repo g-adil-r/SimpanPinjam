@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import com.example.myapplication.Adapter.AnggotaAdapter;
 import com.example.myapplication.R;
@@ -15,7 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class SemuaAnggotaActivity extends AppCompatActivity {
     RecyclerView rvAnggota;
-    FloatingActionButton btTambah;
+    ImageButton btTambah;
     AnggotaAdapter anggotaAdapter;
     AnggotaViewModel anggotaViewModel;
     TransaksiViewModel transaksiViewModel;

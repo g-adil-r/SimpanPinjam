@@ -1,12 +1,16 @@
 package com.example.myapplication.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myapplication.Adapter.TransaksiAdapter;
@@ -20,7 +24,8 @@ import java.text.NumberFormat;
 public class AnggotaActivity extends AppCompatActivity {
     TextView tvNama, tvBidak, tvTotal;
     RecyclerView rvTransaksi;
-    Button btTambahTransaksi, btEditAnggota;
+    ImageButton btTambahTransaksi;
+    Button btEditAnggota;
     AnggotaViewModel anggotaViewModel;
     TransaksiViewModel transaksiViewModel;
     TransaksiAdapter transaksiAdapter;
@@ -29,6 +34,7 @@ public class AnggotaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anggota);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String anggotaId = getIntent().getStringExtra("anggotaId");
 
         tvNama = findViewById(R.id.tv_nama);
@@ -42,7 +48,6 @@ public class AnggotaActivity extends AppCompatActivity {
         transaksiAdapter = new TransaksiAdapter(transaksiViewModel.getTransaksiAdapterOptions(anggotaId), transaksiViewModel, anggotaId);
 
         anggotaViewModel = new AnggotaViewModel(getApplicationContext());
-        transaksiViewModel = new TransaksiViewModel(getApplicationContext(), anggotaId);
 
         anggotaViewModel.getAnggotaFromId(anggotaId)
                 .observe(this, anggota -> {
@@ -54,7 +59,11 @@ public class AnggotaActivity extends AppCompatActivity {
                     tvTotal.setText(CurrencyHelper.stringFormatIDR(integer));
                 });
 
-        rvTransaksi.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        rvTransaksi.setLayoutManager(mLayoutManager);
         rvTransaksi.setAdapter(transaksiAdapter);
         rvTransaksi.setItemAnimator(null);
 
@@ -81,5 +90,11 @@ public class AnggotaActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         transaksiAdapter.stopListening();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }

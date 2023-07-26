@@ -1,9 +1,11 @@
 package com.example.myapplication.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ public class EditTransaksiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaksi_form);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent i = getIntent();
         anggotaId = i.getStringExtra("anggotaId");
         transaksiId = i.getStringExtra("transaksiId");
@@ -46,5 +49,11 @@ public class EditTransaksiActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }
