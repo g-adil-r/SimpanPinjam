@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Nama"
+                android:text="@string/memuat"
                 android:textColor="@color/black"
                 android:textSize="19sp"
                 android:textStyle="bold" />
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
-                android:text="Alamat"
+                android:text="@string/memuat"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
-                android:text="Setoran"
+                android:text="@string/memuat"
                 android:textColor="@color/black" />
 
             <Button

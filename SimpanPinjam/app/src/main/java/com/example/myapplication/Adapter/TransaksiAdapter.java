@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,12 +33,14 @@ import java.util.Date;
 public class TransaksiAdapter extends FirebaseRecyclerAdapter<Transaksi, TransaksiAdapter.TransaksiViewHolder> {
     TransaksiViewModel transaksiViewModel;
     RecyclerView recyclerView;
+    ProgressBar progressBar;
     Context context;
     String anggotaId;
-    public TransaksiAdapter(@NonNull FirebaseRecyclerOptions<Transaksi> options, TransaksiViewModel transaksiViewModel, String anggotaId) {
+    public TransaksiAdapter(@NonNull FirebaseRecyclerOptions<Transaksi> options, TransaksiViewModel transaksiViewModel, String anggotaId, ProgressBar progressBar) {
         super(options);
         this.transaksiViewModel = transaksiViewModel;
         this.anggotaId = anggotaId;
+        this.progressBar = progressBar;
     }
 
     @Override
@@ -62,6 +65,12 @@ public class TransaksiAdapter extends FirebaseRecyclerAdapter<Transaksi, Transak
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_transaksi, parent, false);
         return new TransaksiViewHolder(view);
+    }
+
+    @Override
+    public void onDataChanged() {
+        super.onDataChanged();
+        progressBar.setVisibility(View.GONE);
     }
 
     class TransaksiViewHolder extends RecyclerView.ViewHolder {

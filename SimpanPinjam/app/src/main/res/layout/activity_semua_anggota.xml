@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,8 +34,8 @@
 
     <ImageButton
         android:id="@+id/bt_tambah"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/logo_button"
         android:backgroundTint="#A2CAFE"
@@ -43,4 +43,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_add_24" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_anggota"
+        app:layout_constraintEnd_toEndOf="@+id/rv_anggota"
+        app:layout_constraintStart_toStartOf="@+id/rv_anggota"
+        app:layout_constraintTop_toTopOf="@+id/rv_anggota" />
 </androidx.constraintlayout.widget.ConstraintLayout>

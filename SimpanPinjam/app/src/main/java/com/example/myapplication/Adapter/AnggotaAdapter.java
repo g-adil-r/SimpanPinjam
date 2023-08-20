@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,11 +31,13 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdapter.AnggotaViewHolder> {
     Context context;
     RecyclerView recyclerView;
+    ProgressBar progressBar;
     TransaksiViewModel transaksiViewModel;
     AnggotaViewModel anggotaViewModel;
-    public AnggotaAdapter(@NonNull FirebaseRecyclerOptions<Anggota> options, TransaksiViewModel transaksiViewModel) {
+    public AnggotaAdapter(@NonNull FirebaseRecyclerOptions<Anggota> options, TransaksiViewModel transaksiViewModel, ProgressBar progressBar) {
         super(options);
         this.transaksiViewModel = transaksiViewModel;
+        this.progressBar = progressBar;
     }
 
     @Override
@@ -65,6 +68,12 @@ public class AnggotaAdapter extends FirebaseRecyclerAdapter<Anggota, AnggotaAdap
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_anggota, parent, false);
         return new AnggotaViewHolder(view);
+    }
+
+    @Override
+    public void onDataChanged() {
+        super.onDataChanged();
+        progressBar.setVisibility(View.GONE);
     }
 
     class AnggotaViewHolder extends RecyclerView.ViewHolder {

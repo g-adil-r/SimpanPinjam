@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication.Adapter.TransaksiAdapter;
@@ -26,6 +27,7 @@ public class AnggotaActivity extends AppCompatActivity {
     RecyclerView rvTransaksi;
     ImageButton btTambahTransaksi;
     Button btEditAnggota;
+    ProgressBar progressBar;
     AnggotaViewModel anggotaViewModel;
     TransaksiViewModel transaksiViewModel;
     TransaksiAdapter transaksiAdapter;
@@ -43,9 +45,10 @@ public class AnggotaActivity extends AppCompatActivity {
         rvTransaksi = findViewById(R.id.rv_transaksi);
         btTambahTransaksi = findViewById(R.id.bt_tambah_transaksi);
         btEditAnggota = findViewById(R.id.bt_edit_anggota);
+        progressBar = findViewById(R.id.progressBar2);
 
         transaksiViewModel = new TransaksiViewModel(getApplicationContext(), anggotaId);
-        transaksiAdapter = new TransaksiAdapter(transaksiViewModel.getTransaksiAdapterOptions(anggotaId), transaksiViewModel, anggotaId);
+        transaksiAdapter = new TransaksiAdapter(transaksiViewModel.getTransaksiAdapterOptions(anggotaId), transaksiViewModel, anggotaId, progressBar);
 
         anggotaViewModel = new AnggotaViewModel(getApplicationContext());
 
